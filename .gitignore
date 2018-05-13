@@ -11,3 +11,6 @@
 *.synctex.gz
 *.toc
 *.xdv
+
+# Junk
+.DS_Store
