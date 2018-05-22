@@ -37,12 +37,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+
+\begin{frame}{Why (L)QCD?}
 	\begin{itemize}%[<+->]
-		\item Why Lattice QCD? Or QCD in general?
+		% \item Why Lattice QCD? Or QCD in general?
 		\item Low-energy regime is non-perturbative.
 		\item To understand nuclear forces, one needs a first principles approach.
-		\item Constants achieved from LQCD can be used in Chiral effective field theory, which can then be used in CC methods.
+		\item Understanding nuclear physics from LQCD.
 		\item Can be used to investigate Dark Matter phenomena.
 	\end{itemize}
 \end{frame}
@@ -57,6 +58,7 @@
 		\mathcal{L} = -\frac{1}{4} G_{\mu\nu}^a G^{\mu\nu}^a + \bar{\psi}_i (i\gamma^{\mu} D_{\mu}_{ij} - m\delta_{ij})\psi_j
 	\end{align}
 	$a$ is color indices, $i,j$ is flavour indices.
+	Include 3 and 4 gluon diagrams?
 \end{frame}
 
 \begin{frame}{Challenges with LQCD}
@@ -78,7 +80,6 @@
 \begin{frame}{Lattice QCD}
 	\begin{itemize}%[<+->]
 		\item Discretizing the Gluon field in spacetime by introducing \textit{link variables}, $U_\mu(x)$.
-
 	\end{itemize}
 \end{frame}
 
@@ -157,16 +158,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Plaquette}
-The \textit{plaquette} is the simplest possible gauge invariant object on the lattice. It is a square made of 4 link variables:
-\[
-P_{\mu\nu} = U_\mu(n)U_\nu(n+\hat{\mu})U_{-\mu}(n+\hat{\mu}+\hat{\nu})U_{-\nu}(n+\hat{\nu}) 
-\]
-\[
-	= U_\mu(n)U_\nu(n+\hat{\mu})U_{\mu}(n+\hat{\nu})^\dagger U_{\nu}(n)^\dagger
-\]
-\begin{center}
-	\includegraphics[scale=0.4]{figures/plaq.png}
-\end{center}
+	The \textit{plaquette} is the simplest possible gauge invariant object on the lattice. It is a square made of 4 link variables:
+	\begin{align}
+		P_{\mu\nu} &= U_\mu(n)U_\nu(n+\hat{\mu})U_{-\mu}(n+\hat{\mu}+\hat{\nu})U_{-\nu}(n+\hat{\nu}) 
+		&= U_\mu(n)U_\nu(n+\hat{\mu})U_{\mu}(n+\hat{\nu})^\dagger U_{\nu}(n)^\dagger
+	\end{align}
+	\begin{center}
+		\includegraphics[scale=0.4]{figures/plaq.png}
+	\end{center}
 \end{frame}
 
 \begin{frame}{Energy}
