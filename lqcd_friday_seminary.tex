@@ -3,6 +3,7 @@
 
 \usepackage{appendixnumberbeamer}
 
+\usepackage{slashed}
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
 \usepackage{braket}
@@ -13,6 +14,7 @@
 \usepackage{fontspec}
 \usefonttheme[onlymath]{serif}
 
+\newcommand{\husk}[1]{\color{red} #1 \color{black}}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 \newcommand{\D}{\mathcal{D}}
 \DeclareMathOperator{\Tr}{tr}								% For matrix traces
@@ -38,7 +40,49 @@
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Why (L)QCD?}
+\begin{frame}{The fundamental forces}
+	There are four fundamental forces in nature
+	\begin{itemize}
+		\item Gravity
+		\item Electromagnetism
+		\item Weak force
+		\item Strong force
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Coupling of the forces}
+	Hope that at some energy these couplings will be equal.
+	\husk{picture of couplings here}
+\end{frame}
+
+\begin{frame}{The Standard Model}
+	\begin{align}
+		\mathcal{L} &= - \frac{1}{4}(F_{\mu\nu})^2 + i\bar{\psi}\slashed{D}\psi + h.c. \\
+		&+ \bar{\psi}_i y_{ij}\psi_j \phi + h.c. + |D_\mu\phi|^2 - V(\phi)
+	\end{align}
+	But we are only interested in the strong force...
+\end{frame}
+
+\begin{frame}{QCD}
+	The full QCD Lagrangian,
+	\begin{align}
+		\mathcal{L} = -\frac{1}{4} G_{\mu\nu}^a {G^{\mu\nu}}^a + \bar{\psi}_i (i\gamma^{\mu} D_{\mu}_{ij} - m\delta_{ij})\psi_j
+	\end{align}
+	$a$ is color indices, $i,j$ is flavour indices. $D_\mu = \partial_\mu - i g t^a A_\mu^a$.
+\end{frame}
+
+\begin{frame}{Why QCD is weird}
+	\begin{itemize}
+		\item In the low energy limit, QCD is non-perturbative!
+		\item Self-interaction
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lattice QCD}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Solution: Lattice QCD}
 	\begin{itemize}%[<+->]
 		% \item Why Lattice QCD? Or QCD in general?
 		\item Low-energy regime is non-perturbative.
@@ -46,19 +90,6 @@
 		\item Understanding nuclear physics from LQCD.
 		\item Can be used to investigate Dark Matter phenomena.
 	\end{itemize}
-\end{frame}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{QCD}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{QCD}
-	The full QCD Lagrangian,
-	\begin{align}
-		\mathcal{L} = -\frac{1}{4} G_{\mu\nu}^a G^{\mu\nu}^a + \bar{\psi}_i (i\gamma^{\mu} D_{\mu}_{ij} - m\delta_{ij})\psi_j
-	\end{align}
-	$a$ is color indices, $i,j$ is flavour indices.
-	Include 3 and 4 gluon diagrams?
 \end{frame}
 
 \begin{frame}{Challenges with LQCD}
@@ -75,10 +106,10 @@
 	\end{itemize}
 \end{frame}
 
-% \section{Lattice QCD}
-
 \begin{frame}{Lattice QCD}
 	\begin{itemize}%[<+->]
+		\item Requirement of \textit{Gauge invariance} is strongly maintained(throws Lorentz invariance out of the window ect.).
+		$U' = \Omega^\dagger(x) U \Omega(x)$
 		\item Discretizing the Gluon field in spacetime by introducing \textit{link variables}, $U_\mu(x)$.
 	\end{itemize}
 \end{frame}
@@ -99,7 +130,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Setup}
+\section{Fun technicalities}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Parallelization}
