@@ -11,6 +11,6 @@
 *.synctex.gz
 *.toc
 *.xdv
-
+latex.out/*
 # Junk
 .DS_Store

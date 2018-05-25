@@ -2,7 +2,7 @@
 \usetheme[progressbar=frametitle]{metropolis}
 
 \usepackage{appendixnumberbeamer}
-
+\usepackage{tikz-feynman}
 \usepackage{slashed}
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
@@ -23,7 +23,7 @@
 \title{Lattice Quantum Chromo Dynamics}
 % \subtitle{\textit{Kvantefargedans på et gitter}}
 \date{\today}
-\author{Giovanni Pedervia, Mathias Vege}
+\author{Giovanni Pederiva, Mathias Vege}
 \institute{University of Oslo}
 
 \begin{document}
@@ -51,14 +51,17 @@
 \end{frame}
 
 \begin{frame}{Coupling of the forces}
-	Hope that at some energy these couplings will be equal.
-	\husk{picture of couplings here}
+	Hope that at some energy these couplings will be equal...
+	\begin{center}
+	\includegraphics[width=0.7\textwidth]{figures/couplings.jpg}
+	\end{center}
 \end{frame}
+
 
 \begin{frame}{The Standard Model}
 	\begin{align}
-		\mathcal{L} &= - \frac{1}{4}(F_{\mu\nu})^2 + i\bar{\psi}\slashed{D}\psi + h.c. \\
-		&+ \bar{\psi}_i y_{ij}\psi_j \phi + h.c. + |D_\mu\phi|^2 - V(\phi)
+		\nonumber \mathcal{L} &= - \frac{1}{4}(F_{\mu\nu})^2 + i\bar{\psi}\slashed{D}\psi + h.c. \\
+		\nonumber &+ \bar{\psi}_i y_{ij}\psi_j \phi + h.c. + |D_\mu\phi|^2 - V(\phi)
 	\end{align}
 	But we are only interested in the strong force...
 \end{frame}
@@ -66,16 +69,51 @@
 \begin{frame}{QCD}
 	The full QCD Lagrangian,
 	\begin{align}
-		\mathcal{L} = -\frac{1}{4} G_{\mu\nu}^a {G^{\mu\nu}}^a + \bar{\psi}_i (i\gamma^{\mu} D_{\mu}_{ij} - m\delta_{ij})\psi_j
+		\nonumber \mathcal{L} = -\frac{1}{4} G_{\mu\nu}^a {G^{\mu\nu}}^a + \bar{\psi}_i (i\gamma^{\mu} D_{\mu ij} - m\delta_{ij})\psi_j
 	\end{align}
-	$a$ is color indices, $i,j$ is flavour indices. $D_\mu = \partial_\mu - i g t^a A_\mu^a$.
+	$a$ is color indices, $i,j$ is flavour indices. 
+	\begin{align}
+		\nonumber D_\mu &= \partial_\mu - i g t^a A_\mu^a\\
+		\nonumber G_{\mu\nu}^a &= \frac{i}{g} [D_\mu,D_\nu] =  \partial_\mu A_\nu^a - \partial_\nu A_\mu^a + gf^{abc}A_\mu^b A_\nu^c
+	\end{align}.
 \end{frame}
 
 \begin{frame}{Why QCD is weird}
 	\begin{itemize}
 		\item In the low energy limit, QCD is non-perturbative!
 		\item Self-interaction
+
+		\begin{center}
+				\feynmandiagram [horizontal=a to b, scale=0.8] {
+					b[particle=\(a~\mu\)]  -- [gluon, momentum=\(p\)]  a[dot],
+					a1[particle=\(b~\nu\)]  -- [gluon, momentum=\(q\)]  a,
+					a2[particle=\(c~\rho\)]  -- [gluon, momentum=\(k\)]  a,
+					};
+				\feynmandiagram [horizontal=a1 to b1, scale=0.8]{
+						a1[particle=\(b~\mu\)]  -- [gluon, momentum=\(p\)]  a[dot],
+						b1[particle=\(c~\nu\)] -- [gluon, momentum=\(q\)]  a,  
+						a2[particle=\(d~\rho\)]  -- [gluon, momentum=\(k\)]  a ,
+						b2[particle=\(e~\sigma\)] -- [gluon,  momentum=\(r\)]  a,
+						};
+					\feynmandiagram [horizontal=a1 to b1, scale=0.8]{
+						a1[particle=\(a~\mu\)]  -- [gluon, momentum=\(p\)]  b1[dot],
+						c[particle=\(i\)] -- [fermion, momentum=\(q\)] b1 -- [fermion, momentum'=\(k\)] d[particle=\(j\)]
+						};
+			\end{center}
+			
+		\item huge mass difference in hadrons: 
+		\begin{align}
+			\nonumber m_u + m_u + m_d~ &?= m_p\\
+			\nonumber  (	2.3 +  	2.3 + 4.8)\text{ MeV} ~&?= 938 \text{ MeV} 
+		\end{align}.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{A closer look at the coupling...}
+	This one is VERY different from the others
+	\begin{center}
+	\includegraphics[width=0.7\textwidth]{figures/qcd_coupling.png}
+	\end{center}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,7 +126,7 @@
 		\item Low-energy regime is non-perturbative.
 		\item To understand nuclear forces, one needs a first principles approach.
 		\item Understanding nuclear physics from LQCD.
-		\item Can be used to investigate Dark Matter phenomena.
+		\item Can be used to investigate Dark Matter phenomena (in a far future...).
 	\end{itemize}
 \end{frame}
 
