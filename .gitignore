@@ -14,3 +14,6 @@
 latex.out/*
 # Junk
 .DS_Store
+lqcd_friday_seminary.synctex(busy)
+cvrt.py
+figures/beta62_size1280x1280/

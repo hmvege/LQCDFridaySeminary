@@ -13,6 +13,9 @@
 \usepackage{dsfont}
 \usepackage{braket}
 \usepackage{fontspec}
+% \usepackage{xmpmulti}
+\usepackage{animate}
+
 \usefonttheme[onlymath]{serif}
 
 \tikzset{->-/.style={decoration={
@@ -131,12 +134,12 @@
 \begin{frame}{A closer look at the coupling...}
 	This one is VERY different from the others
 	\begin{center}
-	\includegraphics[width=0.7\textwidth]{figures/qcd_coupling.png}
+		\includegraphics[width=0.7\textwidth]{figures/qcd_coupling.png}
 	\end{center}
 	Low-energy regime is \textbf{non-perturbative}.
 \end{frame}
 
-\begin{frame}{Why is is a problem?}
+\begin{frame}{Why is a problem?}
 	\begin{itemize}
 		\item Understand confinement
 		\item Derive nuclear forces from "first principles"
@@ -192,17 +195,17 @@
 
 	Schematic representation of the \textit{link variables} $U_{\mu}(n)$ and $U_{-\mu}(n)$ on the lattice.\\
 	\begin{itemize}
-	\item These are $3\times3$  unitary matrices. 
-	\item Requirement of \textit{gauge invariance} is strongly maintained (throws Lorentz invariance out of the window ect.).
-	$U' = \Omega^\dagger(x) U \Omega(x)$
-	\item A closed-path product, when traced, is \textit{gauge invariant}
+		\item These are $3\times3$  unitary matrices. 
+		\item Requirement of \textit{gauge invariance} is strongly maintained (throws Lorentz invariance out of the window ect.).
+		$U' = \Omega^\dagger(x) U \Omega(x)$
+		\item A closed-path product, when traced, is \textit{gauge invariant}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{What do we do with it?}
 	Path Integrals!\\
 	\begin{equation}\nonumber	
-	\int \mathcal{D} F[x(t)]\rightarrow \frac{1}{A}\int dx_1 dx_2\dots dx_{N-1} F[x(t)]
+		\int \mathcal{D} F[x(t)]\rightarrow \frac{1}{A}\int dx_1 dx_2\dots dx_{N-1} F[x(t)]
 	\end{equation}
 	These objects are hard to work with though...
 \end{frame}
@@ -376,14 +379,14 @@
 	\end{equation}\nonumber
 	with $B_{\mu}|_{t_f = 0} = A_\mu$
 	The other terms in the equation are defined as:
-\begin{align}\nonumber
-    &G_{\mu\nu} = \partial_\mu B_\nu - \partial_\nu B_\mu + [B_\mu, B_\nu] , \\\nonumber
-    &D_{\mu}B_\nu = \partial_\mu B_\nu + [B_\mu, B_\nu ].
-\end{align}
-A VERY bad approximation is:
-\begin{equation}\nonumber
-	\partial_{t_f}{B}_\mu \approx \partial_\nu \partial_\mu B_\nu \rightarrow \text{diffusion equation in 5D}
-\end{equation}
+	\begin{align}\nonumber
+	    &G_{\mu\nu} = \partial_\mu B_\nu - \partial_\nu B_\mu + [B_\mu, B_\nu] , \\\nonumber
+	    &D_{\mu}B_\nu = \partial_\mu B_\nu + [B_\mu, B_\nu ].
+	\end{align}
+	A VERY bad approximation is:
+	\begin{equation}\nonumber
+		\partial_{t_f}{B}_\mu \approx \partial_\nu \partial_\mu B_\nu \rightarrow \text{diffusion equation in 5D}
+	\end{equation}
 \end{frame}
 
 \begin{frame}{Numerical integration of the Gradient Flow}
@@ -406,6 +409,33 @@ A VERY bad approximation is:
 		\item Get nice animations!
 		\item Eventually write a thesis...
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Topological charge evolution in flow time}
+	\begin{center}
+		% \includegraphics[width=0.7\textwidth]{figures/beta62_size1280x1280/topc/flowTime}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/topc/flow_pngs/flowTimePngs-}{0}{40}
+		% \transduration<0-16>{0}
+  %       \multiinclude[<+->][format=png, graphics={width=\textwidth}]{figures/beta62_size1280x1280/topc/flow_pngs/flowTimePngs}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Energy evolution in flow time}
+	\begin{center}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/energy/flow_pngs/flowTimePngs-}{0}{40}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Topological Charge at large flow times}
+	\begin{center}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/topc/eucl_ft1000/euclTimePngs-}{0}{63}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Energy at large flow times}
+	\begin{center}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/energy/eucl_ft1000/euclTimePngs-}{0}{63}
+	\end{center}
 \end{frame}
 
 
