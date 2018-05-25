@@ -11,8 +11,27 @@
 \usepgfplotslibrary{dateplot}
 \usepackage{xspace}
 \usepackage{dsfont}
+\usepackage{braket}
 \usepackage{fontspec}
 \usefonttheme[onlymath]{serif}
+
+\tikzset{->-/.style={decoration={
+		markings,
+		mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+		\tikzset{-<-/.style={decoration={
+		markings,
+		mark=at position #1 with {\arrow{<}}},postaction={decorate}}}
+
+		\tikzset{
+			ncbar angle/.initial=90,
+			ncbar/.style={
+				to path=(\tikztostart)
+				-- ($(\tikztostart)!#1!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztotarget)$)
+				-- ($(\tikztotarget)!($(\tikztostart)!#1!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztotarget)$)!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztostart)$)
+				-- (\tikztotarget)
+			},
+			ncbar/.default=0.5cm,
+			}
 
 \newcommand{\husk}[1]{\color{red} #1 \color{black}}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
@@ -114,6 +133,15 @@
 	\begin{center}
 	\includegraphics[width=0.7\textwidth]{figures/qcd_coupling.png}
 	\end{center}
+	Low-energy regime is \textbf{non-perturbative}.
+\end{frame}
+
+\begin{frame}{Why is is a problem?}
+	\begin{itemize}
+		\item Understand confinement
+		\item Derive nuclear forces from "first principles"
+		\item Can be used to investigate Dark Matter phenomena (in a far future...).
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -121,94 +149,182 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Solution: Lattice QCD}
-	\begin{itemize}%[<+->]
-		% \item Why Lattice QCD? Or QCD in general?
-		\item Low-energy regime is non-perturbative.
-		\item To understand nuclear forces, one needs a first principles approach.
-		\item Understanding nuclear physics from LQCD.
-		\item Can be used to investigate Dark Matter phenomena (in a far future...).
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{figures/LatticeQCD.png}
+	\end{center}
+
+	Discretizing the Gluon field in spacetime by introducing \textit{link variables}, $U_\mu(x)$.
+\end{frame}
+
+\begin{frame}{A bit more formally...}
+	\begin{figure}[!htb]
+		\centering
+		
+		\begin{tikzpicture}[node distance=0.5cm, scale=0.6] 
+			% arrows
+			\draw[-<-=.5, line width=1.5pt, >=latex] (-2.5,0) to (-6.5,0);
+			\draw[-<-=.5, line width=1.5pt, >=latex] (2.5,0) to  (6.5,0);
+			
+			\draw (6.5, 0.3) -- (6.5, -0.3);
+			\draw (2.5, 0.3) -- (2.5, -0.3);
+			\draw (-2.5, 0.3) -- (-2.5, -0.3);
+			\draw (-6.5, 0.3) -- (-6.5, -0.3);
+		
+			\draw (6.5, 0) -- (6.8, 0);
+			\draw (2.5, 0) -- (2.2, 0);
+			\draw (-2.5, 0) -- (-2.2, 0);
+			\draw (-6.5, 0) -- (-6.8, 0);
+		
+			\filldraw (6.5, 0) circle (0.05);
+			\filldraw (2.5, 0) circle (0.05);
+			\filldraw (-2.5, 0) circle (0.05);
+			\filldraw (-6.5, 0) circle (0.05); 
+		
+			\node [above right] (A) at (-2.5, 0) {$n+\hat\mu$};
+			\node [above left] (B) at (-6.5, 0) {$n$};
+			\node [above right] (D) at (6.5, 0) {$n$};
+			\node [above left] (C) at (2.5, 0) {$n-\hat\mu$};
+		
+			\node (E) at (4.5, -0.7) {$U_{-\mu}(n) \equiv U_\mu^\dagger(n-\hat\mu)$};
+			\node (F) at (-4.5, -0.7) {$U_{\mu}(n)$};
+		\end{tikzpicture}
+	\end{figure}
+
+	Schematic representation of the \textit{link variables} $U_{\mu}(n)$ and $U_{-\mu}(n)$ on the lattice.\\
+	\begin{itemize}
+	\item These are $3\times3$  unitary matrices. 
+	\item Requirement of \textit{gauge invariance} is strongly maintained (throws Lorentz invariance out of the window ect.).
+	$U' = \Omega^\dagger(x) U \Omega(x)$
+	\item A closed-path product, when traced, is \textit{gauge invariant}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Challenges with LQCD}
+\begin{frame}{What do we do with it?}
+	Path Integrals!\\
+	\begin{equation}\nonumber	
+	\int \mathcal{D} F[x(t)]\rightarrow \frac{1}{A}\int dx_1 dx_2\dots dx_{N-1} F[x(t)]
+	\end{equation}
+	These objects are hard to work with though...
+\end{frame}
+
+\begin{frame}{Analogy with QM}
+	In Quantum Mechanics an observable is given by:
+	\begin{equation}\nonumber
+		\frac{\bra{\psi} \hat{O} \ket{\psi}   }{\braket{\psi|\psi}} = \frac{\int dx~\psi^*(x) \hat{O} \psi(x) }{\int dx~\psi^*(x) \psi(x)}
+	\end{equation}
+	In Field Theories:
+	\begin{equation}\nonumber
+		\braket{O[\phi]} = \frac{1}{Z[\phi]} \int  \mathcal{D}[\phi] ~O[\phi] e^{-S_E[\phi]}
+	\end{equation}
+	\begin{equation}\nonumber
+		Z = \int \mathcal{D}[\phi] ~e^{-S_E[\phi]}
+	\end{equation}
+\end{frame}
+
+\begin{frame}{The Euclidean Action}
+	Split in Gluonic and Fermionic part: $S_E[\psi,\bar{\psi}, U] = S_F [\psi,\bar{\psi}, U] + S_G[U]$\\
+	\begin{equation}\nonumber
+		S_G[U] = \frac{a^4}{2g^2}\sum_{n\in\Lambda}\sum_{\mu\nu} \text{Re }\text{Tr} (\mathds{1} - P_{\mu\nu}) \xrightarrow{a\rightarrow 0}  \frac{1}{4g^2} \int d^4x G_{\mu\nu}(x)^2
+	\end{equation}
+	\begin{figure}[!htb]
+		\centering
+		\begin{tikzpicture}[node distance=1cm, remember picture, scale=0.5] 
+	
+			\pgfmathsetmacro\xcoord{2.5};
+			\pgfmathsetmacro\tiplen{0.4};
+			% arrows
+			\draw[->-=.55, line width=1.5pt, >=latex] (\xcoord,\xcoord) to (-\xcoord,\xcoord);
+			\draw[->-=.55, line width=1.5pt, >=latex] (-\xcoord,\xcoord) to  (-\xcoord,-\xcoord);
+			\draw[->-=.55, line width=1.5pt, >=latex] (-\xcoord,-\xcoord) to (\xcoord,-\xcoord);
+			\draw[->-=.55, line width=1.5pt, >=latex] (\xcoord,-\xcoord) to  (\xcoord,\xcoord);
+	
+			\node (A) at (0, 3.1) {};%{$U_{-\mu}(n+\hat\mu+\hat\nu) = U^\dagger_{\mu}(n+\hat\nu)$};
+			\node (B) at (-2.7, 0) {};%{$U_{-\nu}(n+\hat\mu) = U^\dagger_{\nu}(n+\hat\nu)$};
+			\node (D) at (0, -3.1) {};%{$U_{\mu}(n)$};
+			\node (C) at (2.7, 0) {};%{$U_{\nu}(n+\hat\mu) $};
+	
+			\draw (\xcoord, \xcoord) -- (\xcoord, \xcoord+\tiplen);
+			\draw (\xcoord, \xcoord) -- (\xcoord+\tiplen, \xcoord);
+			\draw (\xcoord, -\xcoord) -- (\xcoord, -\xcoord-\tiplen);
+			\draw (\xcoord, -\xcoord) -- (\xcoord+\tiplen, -\xcoord);
+			\draw (-\xcoord, -\xcoord) -- (-\xcoord, -\xcoord-\tiplen);
+			\draw (-\xcoord, -\xcoord) -- (-\xcoord-\tiplen, -\xcoord);
+			\draw (-\xcoord, \xcoord) -- (-\xcoord, \xcoord+\tiplen);
+			\draw (-\xcoord, \xcoord) -- (-\xcoord-\tiplen, \xcoord);
+			
+			\filldraw (\xcoord, \xcoord) circle (0.05);
+			\filldraw (\xcoord, -\xcoord) circle (0.05);
+			\filldraw (-\xcoord, -\xcoord) circle (0.05);
+			\filldraw (-\xcoord, \xcoord) circle (0.05); 
+		\end{tikzpicture}
+	
+		\begin{tikzpicture}[node distance=1cm, remember picture, overlay] 
+			\draw (A) node {$U_{-\mu}(n+\hat\mu+\hat\nu) = U^\dagger_{\mu}(n+\hat\nu)$};
+			\draw [left](B)  node {$U_{-\nu}(n+\hat\mu) = U^\dagger_{\nu}(n+\hat\nu)$};
+			\draw (D) node {$U_{\mu}(n)$};
+			\draw [right](C) node {$U_{\nu}(n+\hat\mu) $};
+	
+			\draw[->, >=latex] (-5.7,0.1) to (-5.7,1.6);
+			\draw[->, >=latex] (-5.7,0.1) to (-4.1,0.1);
+	
+			\node [left] (E) at (-5.7,1.6) {$x_\nu$};
+			\node [below] (F) at  (-4.1,0.1) {$x_\mu$};
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{A Fermion Trick}
+	Integrate the fermions analytically (Grassmann Numbers!)
+	\begin{equation}\nonumber
+	Z = \int \mathcal{D}\psi\mathcal{D}\bar{\psi}\mathcal{D} U e^{-S[\psi,\bar{\psi},U] }  = \int \mathcal{D} U e^{-S_G[U] } \det M[U]
+	\end{equation}
+	\begin{equation}\nonumber
+		\langle O \rangle = \frac{1}{Z}  \int \mathcal{D} U ~O[\psi, \bar{\psi}, U] e^{-S_G[U] } \det M[U] .
+	\end{equation}
+	A better trick: $ \det M[U] \rightarrow const$ (no dynamical fermions)
+\end{frame}
+
+
+\begin{frame}{Analogy with SM}
+	As in Statistical Mechanics:
+	\begin{equation}\nonumber
+	P[U] = \frac{e^{-S_G[U]}\det M[U] }{Z}.
+	\end{equation}
+	so that observables become:
+	\begin{equation}\nonumber
+	\langle O \rangle =  \int \mathcal{D} U~ P[U] O[\psi, \bar{\psi}, U] \approx \frac{1}{N} \sum_{i=1}^N O(\psi,\bar{\psi}, U_i), 	\end{equation}
+\end{frame}
+
+
+
+\begin{frame}{Strategy of LQCD}
+	Create a program that...
 	\begin{itemize}%[<+->]
-		\item Create a program that...
-		\begin{itemize}%[<+->]
-			\item generates field configurations.
-			\item flows generated field configurations.
-			\item Samples the field for $P$, $E$, $Q$, $Q_{t_e}$.
-		\end{itemize}
-		\item Take care of technicalities such as parallelization, $SU(3)$ exponentiation, ect.
-		\item Perform analysis with bootstrap, jackknife, autocorrelation.
-		\item Side projects: animating the field energy density and topological charge.
+		\item Generates ensembles of field configurations $U_i$ with the given PDF. 
+		\item Stores them to memory!
+		\item Later compute the desired observables as averages over the ensemble.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Lattice QCD}
-	\begin{itemize}%[<+->]
-		\item Requirement of \textit{Gauge invariance} is strongly maintained(throws Lorentz invariance out of the window ect.).
-		$U' = \Omega^\dagger(x) U \Omega(x)$
-		\item Discretizing the Gluon field in spacetime by introducing \textit{link variables}, $U_\mu(x)$.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Path integrals}
-	For field theories we discretize the field into points in space time. For a scalar field, this becomes 
-	\[
-		 \int \D \phi \rightarrow \int \prod_{x_i \in lattice} d\phi(x_i)
-	\]
-	From this we can extract observables $\Gamma[\phi]$ dependent on this field as
-	\[
-		\braket{\Gamma[\phi]} = \frac{1}{Z} \int \D \phi \Gamma[\phi] e^{-S[\phi]}
-	\]
-	where the normalization $Z$ is given again by 
-	\[
-		Z = \int \D \phi e^{-S[\phi]}
-	\]
-\end{frame}
+% 	\item Take care of technicalities such as parallelization, $SU(3)$ exponentiation, ect.
+% 	\item Perform analysis with bootstrap, jackknife, autocorrelation.
+% 	\item Side projects: animating the field energy density and topological charge.
+% \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Fun technicalities}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Parallelization}
-	\begin{itemize}%[<+->]
-		\item How do you share a face in 4D?
-		\item 3 different approaches
-		\begin{itemize}%[<+->]
-			\item \textbf{Face-sharing}. Edge cases, not possible in the Metropolis algorithm
-			\item \textbf{Single link-sharing}. Relatively simple to implement, but slow if network is slow.
-			\item \textbf{Shifts}. Large non-blocking data packets at a time.
-		\end{itemize}
-		% \item Example on 
-		% \begin{align}
-		% 	U_{\mu\nu} &= U_\mu(n)U_\nu(n+\hat{\mu})U_\mu(n+\hat{\nu})^\dagger U_\nu(n)^\dagger
-		% \end{align}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Sampling}
-	Data is generated with the Metropolis algorithm, and following setup,
-	\begin{itemize}
-		\item Thermalize lattice. Roughly $~10000$ updates.
-		\begin{enumerate}
-			\item Perform $N_{corr}$ updates on the \textit{whole} Lattice.
-			\item For each $N_{corr}$ update, we also perform $N_{up}$ updates on every \textit{single} link.
-			\item Measure the change in $\Delta S$, the action at each update. Accept config if $\exp(-\Delta S) > r$, where $r$ is a number drawn from a uniform distribution.
-			\item Flow the lattice and calculate observable at each step or save it to file.
-		\end{enumerate}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Flow}
-	\textit{A way of renormalizing the field.}
-	% \begin{figure} % Illustrate with animation
-	% 	\includegraphics[width=0.6\textwidth]{figures/correlator_smearing.gif}
-	% 	\caption{Smearing of a correlator, $\langle Q_{t_e} Q_{t_{e,0}} \rangle$}
-	% \end{figure}
-\end{frame}
-
 \begin{frame}{Data}
+	The size is HUGE
+	\begin{equation}\nonumber
+		\underbrace{N^3}_\text{spatial dimension} \times
+		\underbrace{N_t}_\text{time dimension} \times
+		\underbrace{4}_\text{links per site} \times 
+		\underbrace{9}_\text{SU(3) matrix size} \times
+		\underbrace{2}_\text{real and imaginary part}
+	\end{equation}
 	\begin{table}
 		\caption{Every set is generated with 600 correlation updates between each configuration, and 30 updates per link, except for $6.45$, which has 1600 correlation updates. The the side of the cube is then around $L=2.2$ fermi.}
 		\begin{tabular}{l | l | l | l}
@@ -222,48 +338,119 @@
 	\end{table}
 \end{frame}
 
+\begin{frame}{Parallelization}
+	Too big systems to handle on one processor $\rightarrow$ split into sublattices \\
+	How do you share a face in 4D?
+	\begin{itemize}%[<+->]
+		\item 3 different approaches
+		\begin{itemize}%[<+->]
+			\item \textbf{Halo-exchange}. Edge cases, not possible in the Metropolis algorithm
+			\item \textbf{Single link-sharing}. Relatively simple to implement, but slow if network is slow.
+			\item \textbf{Shifts}. Large non-blocking data packets at a time.
+		\end{itemize}
+		\input{shift}
+	\end{itemize}
+\end{frame}
+% \begin{frame}{Sampling}
+% 	Data is generated with the Metropolis algorithm, and following setup,
+% 	\begin{itemize}
+% 		\item Thermalize lattice. Roughly $~10000$ updates.
+% 		\begin{enumerate}
+% 			\item Perform $N_{corr}$ updates on the \textit{whole} Lattice.
+% 			\item For each $N_{corr}$ update, we also perform $N_{up}$ updates on every \textit{single} link.
+% 			\item Measure the change in $\Delta S$, the action at each update. Accept config if $\exp(-\Delta S) > r$, where $r$ is a number drawn from a uniform distribution.
+% 			\item Flow the lattice and calculate observable at each step or save it to file.
+% 		\end{enumerate}
+% 	\end{itemize}
+% \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Observables}
+\section{What we did}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Plaquette}
-	The \textit{plaquette} is the simplest possible gauge invariant object on the lattice. It is a square made of 4 link variables:
-	\begin{align}
-		P_{\mu\nu} &= U_\mu(n)U_\nu(n+\hat{\mu})U_{-\mu}(n+\hat{\mu}+\hat{\nu})U_{-\nu}(n+\hat{\nu}) 
-		&= U_\mu(n)U_\nu(n+\hat{\mu})U_{\mu}(n+\hat{\nu})^\dagger U_{\nu}(n)^\dagger
-	\end{align}
-	\begin{center}
-		\includegraphics[scale=0.4]{figures/plaq.png}
-	\end{center}
+\begin{frame}{Gradient Flow}
+	\textit{A way of renormalizing the field...}\\
+	Basically, a diffusion-like equation in a 5th (!) dimension.
+	\begin{equation}\nonumber
+		\partial_{t_f}{B}_\mu = D_\nu G_{\nu\mu}
+	\end{equation}\nonumber
+	with $B_{\mu}|_{t_f = 0} = A_\mu$
+	The other terms in the equation are defined as:
+\begin{align}\nonumber
+    &G_{\mu\nu} = \partial_\mu B_\nu - \partial_\nu B_\mu + [B_\mu, B_\nu] , \\\nonumber
+    &D_{\mu}B_\nu = \partial_\mu B_\nu + [B_\mu, B_\nu ].
+\end{align}
+A VERY bad approximation is:
+\begin{equation}\nonumber
+	\partial_{t_f}{B}_\mu \approx \partial_\nu \partial_\mu B_\nu \rightarrow \text{diffusion equation in 5D}
+\end{equation}
 \end{frame}
 
-\begin{frame}{Energy}
-	\begin{align}
-		\langle E\rangle = -\frac{1}{64V}F_{\mu\nu}^a{F^a}^{\mu\nu}
+\begin{frame}{Numerical integration of the Gradient Flow}
+	\begin{align}\nonumber
+		&W_0 = V_t\\\nonumber
+		&W_1 = \exp\left[ \frac{1}{4}Z_0 \right] W_0 \\\nonumber
+		&W_2 = \exp\left[ \frac{8}{9}Z_1 - \frac{17}{36}Z_0 \right] W_1\\\nonumber
+		&V_{t+\epsilon} = \exp\left[ \frac{3}{4}Z_2 - \frac{8}{9}Z_1 + \frac{17}{36}Z_0\right] W_2,
 	\end{align}
+	$Z$ is the derivative of the Action $S_G$. Exponential of $\mathfrak{su}(3)$ elements...\\
+	The goal is to see the evolution of physical observables as the field is smeared by the flow equation.
 \end{frame}
 
-\begin{frame}{Tological charge}
-	Can be thought of as the curl of the gluon field. Analogous to $u \times v = \varepsilon^{ijk} u_j v_k$
-	\begin{align}
-		Q = - \sum_x \frac{1}{64 \cdot 32\pi^2}\epsilon_{\mu\nu\rho\sigma}Tr\{G^{clov}_{\mu\nu}G^{clov}_{\rho\sigma}\}
-	\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{But Why?}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{But Why?}
+	\begin{itemize}
+		\item Get nice animations!
+		\item Eventually write a thesis...
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Topological Susceptibility}
-	\begin{align}
-		\chi^{1/4} = \frac{\hbar c}{aV^{1/4}}\langle Q^2 \rangle^{1/4}
-	\end{align}
-\end{frame}
 
-\begin{frame}{$N_f$ - checking the flavor}
-	% Using Witten-Veneziano formula\footnote{See article following for an example of using WV: https://arxiv.org/pdf/hep-th/0407052.pdf} to look at how different $\chi$ behave in the continuum limit and which that gives the best error estimate.
-	Using Witten-Veneziano formula to look at how different $\chi$ behave in the continuum limit and which that gives the best error estimate.
-	\begin{align*}
-		\frac{F_\pi^2 m_{\eta'}^2}{2 N_f} = \chi
-	\end{align*}
-	where $F_\pi$ is the decay rate constant of pion given as $F_\pi=130.0\pm5.0$MeV. The mass of the meson $\eta'$ is given as $m_{\eta'}=957.78\pm0.06$MeV. $N_f$ is the number of flavors.
-\end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Observables}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}{Plaquette}
+% 	The \textit{plaquette} is the simplest possible gauge invariant object on the lattice. It is a square made of 4 link variables:
+% 	\begin{align}
+% 		P_{\mu\nu} &= U_\mu(n)U_\nu(n+\hat{\mu})U_{-\mu}(n+\hat{\mu}+\hat{\nu})U_{-\nu}(n+\hat{\nu}) 
+% 		&= U_\mu(n)U_\nu(n+\hat{\mu})U_{\mu}(n+\hat{\nu})^\dagger U_{\nu}(n)^\dagger
+% 	\end{align}
+% 	\begin{center}
+% 		\includegraphics[scale=0.4]{figures/plaq.png}
+% 	\end{center}
+% \end{frame}
+
+% \begin{frame}{Energy}
+% 	\begin{align}
+% 		\langle E\rangle = -\frac{1}{64V}F_{\mu\nu}^a{F^a}^{\mu\nu}
+% 	\end{align}
+% \end{frame}
+
+% \begin{frame}{Tological charge}
+% 	Can be thought of as the curl of the gluon field. Analogous to $u \times v = \varepsilon^{ijk} u_j v_k$
+% 	\begin{align}
+% 		Q = - \sum_x \frac{1}{64 \cdot 32\pi^2}\epsilon_{\mu\nu\rho\sigma}Tr\{G^{clov}_{\mu\nu}G^{clov}_{\rho\sigma}\}
+% 	\end{align}
+% \end{frame}
+
+% \begin{frame}{Topological Susceptibility}
+% 	\begin{align}
+% 		\chi^{1/4} = \frac{\hbar c}{aV^{1/4}}\langle Q^2 \rangle^{1/4}
+% 	\end{align}
+% \end{frame}
+
+% \begin{frame}{$N_f$ - checking the flavor}
+% 	% Using Witten-Veneziano formula\footnote{See article following for an example of using WV: https://arxiv.org/pdf/hep-th/0407052.pdf} to look at how different $\chi$ behave in the continuum limit and which that gives the best error estimate.
+% 	Using Witten-Veneziano formula to look at how different $\chi$ behave in the continuum limit and which that gives the best error estimate.
+% 	\begin{align*}
+% 		\frac{F_\pi^2 m_{\eta'}^2}{2 N_f} = \chi
+% 	\end{align*}
+% 	where $F_\pi$ is the decay rate constant of pion given as $F_\pi=130.0\pm5.0$MeV. The mass of the meson $\eta'$ is given as $m_{\eta'}=957.78\pm0.06$MeV. $N_f$ is the number of flavors.
+% \end{frame}
 
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

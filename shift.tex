@@ -1,0 +1,41 @@
+\begin{figure}[hbt!]
+    \pgfmathsetmacro{\radius}{0.075}
+    \pgfmathsetmacro{\sepradius}{4*\radius}
+    \pgfmathsetmacro{\inbend}{45}
+    \pgfmathsetmacro{\outbend}{180-\inbend}
+    \pgfmathsetmacro{\ovalspacing}{0.15}
+    \centering
+        \begin{tikzpicture}
+            % Motion
+            \draw[very thin, step=1] (0,0) grid(4,4);
+            \draw[very thin, dashed,step=1] (-1,0) grid(-2.5,4);
+            \draw[very thin, dashed,step=1] (5,0) grid(6.5,4);
+            \foreach \x in {0,...,4}{
+                \foreach \y in {0,...,4}{
+                    \fill (\x,\y) circle(\radius);
+                }
+            }
+            \foreach \x in {-1,-2,5,6}{
+                \foreach \y in {0,...,4}{
+                    \filldraw[fill=white] (\x,\y) circle(\radius);
+                }
+            }
+            \foreach \x in {0,...,5}{
+                \foreach \y in {0,...,4}{
+                    \draw (\x,\y) ++(\outbend:\sepradius) coordinate(A);
+                    \draw (\x-1,\y) ++(\inbend:\sepradius) coordinate (B);
+                    \path[->] (A)  edge[bend right=\inbend] (B);
+                }
+            }
+            \foreach \x in {0,4}{
+                \draw (\x-\ovalspacing,-\radius) coordinate (A);
+                \draw (A) ++(0,4+2*\radius) coordinate (B);
+                \draw (\x+\ovalspacing,-\radius) coordinate (C);
+                \draw (C) ++(0,4+2*\radius) coordinate (D);
+                \draw[gray] (A) -- (B);
+                \draw[gray] (C) -- (D);
+                \draw[gray] (A) arc(180:360:\ovalspacing);
+                \draw[gray] (D) arc(0:180:\ovalspacing);
+            }
+        \end{tikzpicture}
+\end{figure}
