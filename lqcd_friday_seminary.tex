@@ -42,7 +42,7 @@
 \DeclareMathOperator{\Tr}{tr}								% For matrix traces
 \DeclareMathOperator{\tr}{tr}								% For matrix traces
 
-\title{Lattice Quantum Chromo Dynamics}
+\title{Lattice Quantum Chromodynamics}
 % \subtitle{\textit{Kvantefargedans på et gitter}}
 \date{\today}
 \author{Giovanni Pederiva, Mathias Vege}
@@ -139,7 +139,7 @@
 	Low-energy regime is \textbf{non-perturbative}.
 \end{frame}
 
-\begin{frame}{Why is a problem?}
+\begin{frame}{Why is this a problem?}
 	\begin{itemize}
 		\item Understand confinement
 		\item Derive nuclear forces from "first principles"
@@ -221,6 +221,10 @@
 	\end{equation}
 	\begin{equation}\nonumber
 		Z = \int \mathcal{D}[\phi] ~e^{-S_E[\phi]}
+	\end{equation}
+	The action is 
+	\begin{equation}\nonumber
+		S_E = \int d^4 x \mathcal{L}_E
 	\end{equation}
 \end{frame}
 
@@ -330,12 +334,12 @@
 	\end{equation}
 	\begin{table}
 		\caption{Every set is generated with 600 correlation updates between each configuration, and 30 updates per link, except for $6.45$, which has 1600 correlation updates. The the side of the cube is then around $L=2.2$ fermi.}
-		\begin{tabular}{l | l | l | l}
-			$\beta$ & Size & $N_{cfgs}$ & Size \\ \hline
-			$6.0$ & $24^\times 48$ & $1000$ & 356 GB \\
-			$6.1$ & $28^\times 56$ & $500$ & 330 GB\\
-			$6.2$ & $32^\times 64$ & $500$ & 562 GB\\
-			$6.45$ & $48^\times 96$ & $250$ & 1.4 TB\\
+		\begin{tabular}{l | l | l | l | l}
+			$\beta$ & Size & $N_{cfgs}$ & Conf. size & Ensemble size \\ \hline
+			$6.0$ & $24^3\times 48$ & $1000$ & 364 MB & 356 GB \\
+			$6.1$ & $28^3\times 56$ & $500$ & 675 MB & 330 GB\\
+			$6.2$ & $32^3\times 64$ & $500$ & 1.15 GB & 562 GB\\
+			$6.45$ & $48^3\times 96$ & $250$ & 5.7 GB & 1.4 TB\\
 		\end{tabular}
 		\label{tab:data_batches}
 	\end{table}
@@ -414,7 +418,7 @@
 \begin{frame}{Topological charge evolution in flow time}
 	\begin{center}
 		% \includegraphics[width=0.7\textwidth]{figures/beta62_size1280x1280/topc/flowTime}
-		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/topc/flow_pngs/flowTimePngs-}{0}{40}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{15}{figures/beta62_size1280x1280/topc/flow_pngs/flowTimePngs-}{0}{40}
 		% \transduration<0-16>{0}
   %       \multiinclude[<+->][format=png, graphics={width=\textwidth}]{figures/beta62_size1280x1280/topc/flow_pngs/flowTimePngs}
 	\end{center}
@@ -422,19 +426,25 @@
 
 \begin{frame}{Energy evolution in flow time}
 	\begin{center}
-		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/energy/flow_pngs/flowTimePngs-}{0}{40}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{15}{figures/beta62_size1280x1280/energy/flow_pngs/flowTimePngs-}{0}{40}
 	\end{center}
 \end{frame}
 
-\begin{frame}{Topological Charge at large flow times}
+\begin{frame}{Topological Charge at large flow times in Euclidean time}
 	\begin{center}
-		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/topc/eucl_ft1000/euclTimePngs-}{0}{63}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{15}{figures/beta62_size1280x1280/topc/eucl_ft1000/euclTimePngs-}{0}{63}
 	\end{center}
 \end{frame}
 
-\begin{frame}{Energy at large flow times}
+\begin{frame}{Energy at large zero flow time in Euclidean time}
 	\begin{center}
-		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{20}{figures/beta62_size1280x1280/energy/eucl_ft1000/euclTimePngs-}{0}{63}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{15}{figures/beta62_size1280x1280/energy/eucl_ft0/euclTimePngs-}{0}{63}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Energy at large flow times in Euclidean time}
+	\begin{center}
+		\animategraphics[loop,controls,width=\linewidth,scale=0.7]{15}{figures/beta62_size1280x1280/energy/eucl_ft1000/euclTimePngs-}{0}{63}
 	\end{center}
 \end{frame}
 
@@ -542,11 +552,12 @@
 % 	\end{itemize}
 % \end{frame}
 
-\begin{frame}{References}
-	\begin{itemize}
-		\item G.P. Lepage, \textit{Lattice QCD for Novices}, arXiv:hep-lat/0506036 (2005)
-		\item C. Gattringer \& C.P. Lang, \textit{Quantum Chromodynamics on the Lattice}, Springer (2010)
-	\end{itemize}
+\begin{frame}
+	Thanks for watching! Questions?
+	\centering
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{figures/cubes_vs_hypercubes.png}
+	\end{center}
 \end{frame}
 
 \end{document}
